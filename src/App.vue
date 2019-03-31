@@ -1,20 +1,20 @@
 <template>
-  <v-app>
-    <core-filter />
-
-    <core-toolbar />
-
-    <core-drawer />
-
-    <core-view />
-  </v-app>
+    <div id="app">
+        <router-view name="header"></router-view>
+        <main>
+            <fade-transition origin="center" mode="out-in" :duration="250">
+                <router-view/>
+            </fade-transition>
+        </main>
+        <router-view name="footer"></router-view>
+    </div>
 </template>
+<script>
+import { FadeTransition } from "vue2-transitions";
 
-<style lang="scss">
-@import '@/styles/index.scss';
-
-/* Remove in 1.2 */
-.v-datatable thead th.column.sortable i {
-  vertical-align: unset;
-}
-</style>
+export default {
+  components: {
+    FadeTransition
+  }
+};
+</script>
