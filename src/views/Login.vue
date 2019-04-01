@@ -41,18 +41,22 @@
                                 <base-input alternative
                                             class="mb-3"
                                             placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
+                                            addon-left-icon="ni ni-email-83"
+                                            v-model="email">
                                 </base-input>
                                 <base-input alternative
                                             type="password"
                                             placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
+                                            addon-left-icon="ni ni-lock-circle-open"
+                                            v-model="password">
                                 </base-input>
                                 <base-checkbox>
                                     Remember me
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="primary" class="my-4">Sign In</base-button>
+                                    <base-button type="primary" class="my-4" @click="login()" :disabled="loginClicked.bool">
+                                        {{ loginClicked.message }}
+                                    </base-button>
                                 </div>
                             </form>
                         </template>
@@ -64,7 +68,7 @@
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="text-light">
+                            <a href="/#/register" class="text-light">
                                 <small>Create new account</small>
                             </a>
                         </div>
@@ -75,7 +79,58 @@
     </section>
 </template>
 <script>
-export default {};
+// import axios from 'axios'
+export default {
+  data(){
+    return {
+      email: "weilogg@gmail.com",
+      password: "Logg5843",
+      loginClicked: {
+        bool: false,
+        message: "sign in"
+      }
+    }
+  },
+  methods : {
+    login() {
+      this.loginClicked.bool = true
+      this.loginClicked.message = "Please wait..."
+      if(this.password.length > 0) {
+        // console.log(this.email)
+        // console.log(this.password)
+        this.$http.post("http://127.0.0.1:8000/api/login",{
+          email: this.email,
+          password: this.password,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => {
+          console.log(response)
+          localStorage.setItem('user',response.data.success.name)
+          localStorage.setItem('jwt',response.data.success.token)
+
+          if (localStorage.getItem('jwt') != null){
+            this.$router.go('/')
+          }
+        })
+        .catch(response => {
+          console.log(response)
+        })
+      } else {
+        this.password = ""
+      }
+    }
+  },
+  beforeRouteEnter (to, from, next) { 
+    if (localStorage.getItem('jwt')) {
+      return next('/');
+    }
+
+    next();
+  },
+};
 </script>
 <style>
 </style>
