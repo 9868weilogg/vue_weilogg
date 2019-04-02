@@ -112,7 +112,7 @@ export default {
           localStorage.setItem('jwt',response.data.success.token)
 
           if (localStorage.getItem('jwt') != null){
-            this.$router.go('/')
+            this.$router.go('/blogs')
           }
         })
         .catch(response => {
@@ -125,7 +125,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) { 
     if (localStorage.getItem('jwt')) {
-      return next('/');
+      return next('/blogs');
     }
 
     next();

@@ -21,6 +21,10 @@
                     <i class="ni ni-ui-04 d-lg-none"></i>
                     <span class="nav-link-inner--text">Resume</span>
                 </router-link>
+                <!-- <router-link slot="title" class="nav-link" to="/blogs">
+                    <i class="ni ni-ui-04 d-lg-none"></i>
+                    <span class="nav-link-inner--text">Blog</span>
+                </router-link> -->
                 <!-- <base-dropdown class="nav-item" menu-classes="dropdown-menu-xl">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
