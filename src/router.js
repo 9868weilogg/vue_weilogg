@@ -10,6 +10,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import Resume from "./views/Resume.vue";
+import Blog from "./views/Blog.vue";
 
 Vue.use(Router);
 
@@ -31,6 +32,15 @@ export default new Router({
       components: {
         header: LoggHeader,
         default: Resume,
+        footer: LoggFooter
+      }
+    },
+    {
+      path: "/blogs",
+      name: "blog",
+      components: {
+        header: LoggHeader,
+        default: Blog,
         footer: LoggFooter
       }
     },
