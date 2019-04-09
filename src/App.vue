@@ -13,8 +13,18 @@
 import { FadeTransition } from "vue2-transitions";
 
 export default {
+  data() {
+    return {
+      isLoggedIn : null,
+      name: null,
+    }
+  },
   components: {
     FadeTransition
+  },
+  mounted() {
+    this.isLoggedIn = localStorage.getItem('jwt')
+    this.name = localStorage.getItem('user')
   }
 };
 </script>
