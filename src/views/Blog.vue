@@ -153,17 +153,16 @@
                 </editor-menu-bar>
 
                 <editor-content class="editor__content" :editor="editor" />
-                <button class="btn btn-sm btn-outline-primary">
+                <button class="btn btn-sm btn-outline-primary" @click="setContent">
                   Submit
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <section class="section section-skew" v-for="(item, index) in blogs">
+        <section class="section section-skew">
             <div class="container">
-                <div class="card" style="background-color: rgba(0,0,0,0.1);">
-                <!-- <card shadow v-for="(item, index) in blogs"> -->
+                <div class="card" style="background-color: rgba(0,0,0,0.1); margin-top:10px;" v-for="(item, index) in blogs">
                   <div class="card-body">
                     <p class="card-text"><span v-html="item.blog_title"></span></p>
                     <p class="card-text"><span v-html="item.blog_post"></span></p>
@@ -223,21 +222,51 @@ export default {
         ],
         content: `
           <h1>Yay Headlines!</h1>
+          <p>|</p>
           <p>All these <strong>cool tags</strong> are working now.</p>
         `,
       }),
       blogs : [],
+      post : "",
       modals: {
         modal1: false
       }
     };
   },
+  methods : {
+    setContent() {
+      // console.log(this.editor.getHTML());
+      this.post = this.editor.getHTML();
+      this.blogs.unshift({
+        'blog_post' : this.post.split("<p>|</p>")[1],
+        'blog_title' : this.post.split("<p>|</p>")[0],
+      })
+      console.log(this.blogs[0])
+      this.$http.post("http://127.0.0.1:8000/api/blogs",{
+        'blog_post': this.blogs[0].blog_post,
+        'blog_title': this.blogs[0].blog_title,
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
+    },
+  },
   mounted() {
+    let token = localStorage.getItem('jwt')
+
+    this.$http.defaults.headers.common['Content-Type'] = 'application/json'
+    this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
+    this.$http.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+
     this.$http.get("http://127.0.0.1:8000/api/blogs",{
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Content-Type': 'application/json',
+      //   'Authorization': 'bearer ' + localStorage.getItem('jwt'),
+      // },
     })
     .then(response => {
       // console.log(response)
@@ -250,11 +279,17 @@ export default {
       // }
     })
     .catch(error => {
-      console.log(error)
+      console.log(error.response)
     })
   },
   beforeDestroy() {
     this.editor.destroy()
+  },
+  beforeRouteEnter (to, from, next) { 
+    if ( ! localStorage.getItem('jwt')) {
+        return next('login')
+    }
+    next()
   },
 };
 </script>
