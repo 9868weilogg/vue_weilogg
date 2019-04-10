@@ -230,7 +230,8 @@ export default {
       post : "",
       modals: {
         modal1: false
-      }
+      },
+      user: "",
     };
   },
   methods : {
@@ -245,6 +246,7 @@ export default {
       this.$http.post("http://127.0.0.1:8000/api/blogs",{
         'blog_post': this.blogs[0].blog_post,
         'blog_title': this.blogs[0].blog_title,
+        'user_id' : this.user.id,
       })
       .then(response => {
         console.log(response)
@@ -256,12 +258,16 @@ export default {
   },
   mounted() {
     let token = localStorage.getItem('jwt')
+    this.user = JSON.parse(localStorage.getItem('user'))
 
     this.$http.defaults.headers.common['Content-Type'] = 'application/json'
     this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
     this.$http.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
     this.$http.get("http://127.0.0.1:8000/api/blogs",{
+      params : {
+        user_id: this.user.id,
+      }
       // headers: {
       //   'Access-Control-Allow-Origin': '*',
       //   'Content-Type': 'application/json',
