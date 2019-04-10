@@ -108,9 +108,9 @@ export default {
         })
         .then(response => {
           console.log(response)
-          localStorage.setItem('user',response.data.success.name)
+          localStorage.setItem('user',JSON.stringify(response.data.user))
           localStorage.setItem('jwt',response.data.success.token)
-
+          
           if (localStorage.getItem('jwt') != null){
             this.$router.go('/blogs')
           }
