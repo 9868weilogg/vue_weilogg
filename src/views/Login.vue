@@ -79,7 +79,6 @@
     </section>
 </template>
 <script>
-// import axios from 'axios'
 export default {
   data(){
     return {
@@ -98,13 +97,10 @@ export default {
       if(this.password.length > 0) {
         // console.log(this.email)
         // console.log(this.password)
-        this.$http.post("http://127.0.0.1:8000/api/login",{
+        this.$http.post("http://api.weilogg.com/api/login",{
+        // this.$http.post("http://127.0.0.1:8000/api/login",{
           email: this.email,
           password: this.password,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },
         })
         .then(response => {
           console.log(response)
@@ -115,8 +111,8 @@ export default {
             this.$router.go('/blogs')
           }
         })
-        .catch(response => {
-          console.log(response)
+        .catch(error => {
+          console.log(error.response)
         })
       } else {
         this.password = ""

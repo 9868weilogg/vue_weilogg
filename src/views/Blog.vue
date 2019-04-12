@@ -264,25 +264,15 @@ export default {
     this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
     this.$http.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
-    this.$http.get("http://127.0.0.1:8000/api/blogs",{
+    this.$http.get("http://api.weilogg.com/api/blogs",{
+    // this.$http.get("http://127.0.0.1:8000/api/blogs",{
       params : {
         user_id: this.user.id,
       }
-      // headers: {
-      //   'Access-Control-Allow-Origin': '*',
-      //   'Content-Type': 'application/json',
-      //   'Authorization': 'bearer ' + localStorage.getItem('jwt'),
-      // },
     })
     .then(response => {
       // console.log(response)
       this.blogs = response.data
-      // localStorage.setItem('user',response.data.success.name)
-      // localStorage.setItem('jwt',response.data.success.token)
-
-      // if (localStorage.getItem('jwt') != null){
-      //   this.$router.go('/')
-      // }
     })
     .catch(error => {
       console.log(error.response)
@@ -300,8 +290,4 @@ export default {
 };
 </script>
 <style>
-body
-{
-  background: #ffffff url("/assets/images/milky-way.jpg") no-repeat right top;
-}
 </style>
