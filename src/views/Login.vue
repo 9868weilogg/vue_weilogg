@@ -17,25 +17,26 @@
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
-                        <template>
+                        <!-- <template>
                             <div class="text-muted text-center mb-3">
                                 <small>Sign in with</small>
                             </div>
                             <div class="btn-wrapper text-center">
                                 <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/github.svg">
+                                    <img slot="icon" src="@/assets/images/icons/common/github.svg">
                                     Github
                                 </base-button>
 
                                 <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/google.svg">
+                                    <img slot="icon" src="@/assets/images/icons/common/google.svg">
                                     Google
                                 </base-button>
                             </div>
-                        </template>
+                        </template> -->
                         <template>
                             <div class="text-center text-muted mb-4">
-                                <small>Or sign in with credentials</small>
+                                <small>Sign in with credentials</small>
+                                <!-- <small>Or sign in with credentials</small> -->
                             </div>
                             <form role="form">
                                 <base-input alternative
@@ -83,7 +84,8 @@ export default {
   data(){
     return {
       email: "weilogg@gmail.com",
-      password: "Logg5843",
+      // password: "Logg5843",
+      password: "",
       loginClicked: {
         bool: false,
         message: "sign in"
@@ -98,7 +100,6 @@ export default {
         // console.log(this.email)
         // console.log(this.password)
         this.$http.post("http://api.weilogg.com/api/login",{
-        // this.$http.post("http://127.0.0.1:8000/api/login",{
           email: this.email,
           password: this.password,
         })

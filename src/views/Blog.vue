@@ -243,7 +243,7 @@ export default {
         'blog_title' : this.post.split("<p>|</p>")[0],
       })
       console.log(this.blogs[0])
-      this.$http.post("http://127.0.0.1:8000/api/blogs",{
+      this.$http.post("http://api.weilogg.com/api/blogs",{
         'blog_post': this.blogs[0].blog_post,
         'blog_title': this.blogs[0].blog_title,
         'user_id' : this.user.id,
@@ -265,7 +265,6 @@ export default {
     this.$http.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
     this.$http.get("http://api.weilogg.com/api/blogs",{
-    // this.$http.get("http://127.0.0.1:8000/api/blogs",{
       params : {
         user_id: this.user.id,
       }
