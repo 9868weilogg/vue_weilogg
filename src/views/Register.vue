@@ -110,7 +110,6 @@ export default {
         // console.log(this.password)
         // console.log(this.confirm_password) 
         this.$http.post("http://api.weilogg.com/api/register",{
-        // this.$http.post("http://127.0.0.1:8000/api/register",{
           name: this.name,
           email: this.email,
           password: this.password,

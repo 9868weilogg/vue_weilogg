@@ -99,7 +99,6 @@ export default {
         // console.log(this.email)
         // console.log(this.password)
         this.$http.post("http://api.weilogg.com/api/login",{
-        // this.$http.post("http://127.0.0.1:8000/api/login",{
           email: this.email,
           password: this.password,
         })
