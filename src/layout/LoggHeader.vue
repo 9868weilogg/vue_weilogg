@@ -21,10 +21,10 @@
                     <i class="ni ni-ui-04 d-lg-none"></i>
                     <span class="nav-link-inner--text">Resume</span>
                 </router-link>
-                <!-- <router-link slot="title" class="nav-link" to="/blogs">
+                <router-link slot="title" class="nav-link" to="/blogs" v-if="isLogin">
                     <i class="ni ni-ui-04 d-lg-none"></i>
                     <span class="nav-link-inner--text">Blog</span>
-                </router-link> -->
+                </router-link>
                 <!-- <base-dropdown class="nav-item" menu-classes="dropdown-menu-xl">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
@@ -109,11 +109,23 @@ import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
 
 export default {
+  data() {
+    return {
+      isLogin : false,
+    }
+  },
   components: {
     BaseNav,
     CloseButton,
     BaseDropdown
-  }
+  },
+  mounted() {
+    let jwt = localStorage.getItem('jwt');
+
+    if(jwt !== null) {
+      this.isLogin = true;
+    }
+  },
 };
 </script>
 <style>
