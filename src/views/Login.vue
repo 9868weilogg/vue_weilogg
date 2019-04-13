@@ -83,7 +83,8 @@ export default {
   data(){
     return {
       email: "weilogg@gmail.com",
-      password: "Logg5843",
+      // password: "Logg5843",
+      password: "",
       loginClicked: {
         bool: false,
         message: "sign in"
