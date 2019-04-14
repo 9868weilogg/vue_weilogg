@@ -127,14 +127,6 @@
 
                     <button
                       class="menubar__button btn btn-sm btn-outline-primary"
-                      @click="commands.horizontal_rule"
-                    >
-                      <!-- <icon name="hr" /> -->
-                      <i class="fa fa-terminal"></i>
-                    </button>
-
-                    <button
-                      class="menubar__button btn btn-sm btn-outline-primary"
                       @click="commands.undo"
                     >
                       <!-- <icon name="undo" /> -->
@@ -152,7 +144,7 @@
                   </div>
                 </editor-menu-bar>
 
-                <editor-content class="editor__content" :editor="editor" />
+                <editor-content class="editor__content" :editor="editor"/>
                 <button class="btn btn-sm btn-outline-primary" @click="setContent">
                   Submit
                 </button>
@@ -201,48 +193,33 @@ export default {
   },
   data() {
     return {
-      editor: new Editor({
-        extensions: [
-          new Blockquote(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new BulletList(),
-          new OrderedList(),
-          new ListItem(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History(),
-        ],
-        content: `
-          <h1>Yay Headlines!</h1>
-          <p>|</p>
-          <p>All these <strong>cool tags</strong> are working now.</p>
-        `,
-      }),
-      blogs : [],
-      post : "",
-      modals: {
-        modal1: false
-      },
-      user: "",
+      editor : null,
+      blogs  : [],
+      post   : "",
+      user   : "",
+      content: "<h3>Yay Headlines!</h3><p>|</p><p>All these <strong>cool tags</strong> are working now.</p>"
     };
   },
   methods : {
     setContent() {
       // console.log(this.editor.getHTML());
-      this.post = this.editor.getHTML();
-      this.blogs.unshift({
-        'blog_post' : this.post.split("<p>|</p>")[1],
-        'blog_title' : this.post.split("<p>|</p>")[0],
+      this.post = this.editor.getHTML()
+      this.pushBlog()
+      console.log(this.blogs)
+      
+    },
+    async pushBlog() {
+      let promise = new Promise((resolve, reject) => {
+        this.blogs.unshift({
+          'blog_post' : this.post.split("<p>|</p>")[1],
+          'blog_title' : this.post.split("<p>|</p>")[0],
+        })
+        resolve('added')
       })
-      console.log(this.blogs[0])
+      await promise
+      return this.storeBlogDB()
+    },
+    storeBlogDB() {
       this.$http.post("http://api.weilogg.com/api/blogs",{
         'blog_post': this.blogs[0].blog_post,
         'blog_title': this.blogs[0].blog_title,
@@ -250,6 +227,9 @@ export default {
       })
       .then(response => {
         console.log(response)
+      })
+      .then(() => {
+        this.editor.setContent(this.content)
       })
       .catch(error => {
         console.log(error.response)
@@ -272,6 +252,37 @@ export default {
     .then(response => {
       // console.log(response)
       this.blogs = response.data
+    })
+    .then(() => {
+      this.editor = new Editor({
+        extensions: [
+          new Blockquote(),
+          new CodeBlock(),
+          new HardBreak(),
+          new Heading({ levels: [1, 2, 3] }),
+          new BulletList(),
+          new OrderedList(),
+          new ListItem(),
+          new TodoItem(),
+          new TodoList(),
+          new Bold(),
+          new Code(),
+          new Italic(),
+          new Link(),
+          new Strike(),
+          new Underline(),
+          new History(),
+        ],
+        content: `
+          <h3>Yay Headlines!</h3>
+          <p>|</p>
+          <p>All these <strong>cool tags</strong> are working now.</p>
+        `,
+        // autoFocus: true,
+        onUpdate : ({ getHTML }) => {
+          console.log(getHTML())
+        }
+      })
     })
     .catch(error => {
       console.log(error.response)
