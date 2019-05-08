@@ -130,15 +130,15 @@
                         <div class="row">
                             <div class="col-md-12 mb-5 mb-md-0 text-center">
                                 <div class="card card-lift--hover shadow border-0">
-                                    <!-- <a href="http://dishmotion.weilogg.com"> -->
+                                    <a href="http://wages.weilogg.com">
                                         <!-- <video preload="auto" autoplay="autoplay" loop  id="dishmotionHomepage">
                                            <source src="@/assets/film/dishmotion-homepage.mov" type="video/mov"/>
                                            <source src="@/assets/film/dishmotion-homepage.mp4" type="video/mp4" />
                                            <source src="@/assets/film/dishmotion-homepage.ogg" type="video/ogg" />
                                            Your browser does not support the video tag.
                                         </video> -->
-                                        <img id="wagesHomepageImg" src="@/assets/images/work-in-progress.png" alt="wages poster" width="30%" height="auto">
-                                    <!-- </a> -->
+                                        <img id="wagesHomepageImg" src="@/assets/images/wages-home.png" alt="wages poster" width="30%" height="auto">
+                                    </a>
                                 </div>
                                 <h5 class="text-white mt-3">Wages</h5>
                                 <p class="text-white mt-3">Personal project for learning new skill.</p>
