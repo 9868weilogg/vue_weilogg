@@ -34,6 +34,18 @@ export default {
     return {
       items: [
         {
+          tag: 'Jan, 2019',
+          // type: 'star',
+          htmlMode: true,
+          content: '<div><h3>Web Developer</h3><p>Beacon Systems Sdn Bhd</p><ul><li>Involved in company\'s product an accounting cloud based web app.</li><ul><li>Create task scheduler to send email for reminding customer to renew subscription.</li><li>Create feature that allow user to customize all pdf document layout.</li><li>Create feature that allow user to create credit/ debit notes for invoices.</li><li>Payroll calculation feature.</li><li>Allow user to customize permission of access specified section and document.</li><li>Create PCB calculator for payroll.</li><li>Create feature that allow user to submit claims.</li><li>Create feature that allow user to import CSV file for mass update.</li></ul></ul></div>'
+        },
+        {
+          tag: 'Oct, 2018',
+          // type: 'star',
+          htmlMode: true,
+          content: '<div><h3>Web Developer</h3><p>Beacon Systems Sdn Bhd</p><ul><li>Involved in project management web app.</li><ul><li>Initial setup to start development (git, smtp for sending email, production server deployment, database structure modelling).</li><li>Apply theme to frontend UI.</li><li>Present development progress to client.</li><li>Meeting with client to update code according to their requirement.</li><li>Audit trail feature to keep track of information updates.</li><li>Refractoring code according to DRY and SOLID principles.</li><li>Create graph using chartist & c3.js libraries.</li><li>Add gantt chart to task management.</li><li>Create form builder feature.</li><li>Create customize email template feature.</li><li>User login with Active Directory authentication, integrate with web app\'s login system.</li></ul></ul></div>'
+        },
+        {
           tag: 'Oct, 2018',
           type: 'star',
           htmlMode: true,
